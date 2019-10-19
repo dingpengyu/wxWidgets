@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: wxWidgets 3.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-21 14:25+0200\n"
-"PO-Revision-Date: 2014-02-21 22:57-0800\n"
-"Last-Translator: Jiawei Huang <hjiawei@gmail.com>\n"
+"PO-Revision-Date: 2019-10-19 10:54+0800\n"
+"Last-Translator: dingpengyu <dingpengyu06@gmail.com>\n"
 "Language-Team: wxWidgets tranlators <wx-translators@wxwidgets.org>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: ../src/common/debugrpt.cpp:586
 msgid ""
@@ -40,7 +40,7 @@ msgstr "              谢谢，我们对您遇到的不便表示抱歉！\n"
 #: ../src/common/prntbase.cpp:573
 #, c-format
 msgid " (copy %d of %d)"
-msgstr "(复制 %d / %d)"
+msgstr " (复制 %d / %d)"
 
 #: ../src/common/log.cpp:421
 #, c-format
@@ -319,7 +319,7 @@ msgstr "自定义(&C)..."
 
 #: ../src/generic/dbgrptg.cpp:334
 msgid "&Debug report preview:"
-msgstr "调试报告预览(&D): "
+msgstr "调试报告预览(&D):"
 
 #: ../src/richtext/richtexttabspage.cpp:138
 #: ../src/richtext/richtextctrl.cpp:335 ../src/osx/textctrl_osx.cpp:579
@@ -507,8 +507,7 @@ msgstr "网络(&N)"
 msgid "&New"
 msgstr "新建(&N)"
 
-#: ../src/aui/tabmdi.cpp:111 ../src/generic/mdig.cpp:100
-#: ../src/msw/mdi.cpp:180
+#: ../src/aui/tabmdi.cpp:111 ../src/generic/mdig.cpp:100 ../src/msw/mdi.cpp:180
 msgid "&Next"
 msgstr "下一个(&N)"
 
@@ -582,8 +581,7 @@ msgstr "位置(&P)"
 msgid "&Preferences"
 msgstr "偏好设置(&P)"
 
-#: ../src/aui/tabmdi.cpp:112 ../src/generic/mdig.cpp:101
-#: ../src/msw/mdi.cpp:181
+#: ../src/aui/tabmdi.cpp:112 ../src/generic/mdig.cpp:101 ../src/msw/mdi.cpp:181
 msgid "&Previous"
 msgstr "前页(&P)"
 
@@ -1646,7 +1644,7 @@ msgstr "大写(&P)"
 
 #: ../src/common/cmdproc.cpp:267
 msgid "Can't &Undo "
-msgstr "无法撤销(&U)"
+msgstr "无法撤销(&U) "
 
 #: ../src/common/image.cpp:2824
 msgid "Can't automatically determine the image format for non-seekable input."
@@ -2009,9 +2007,8 @@ msgstr "无法创建目录 \"%s\""
 
 #. TRANSLATORS: System cursor name
 #: ../src/propgrid/advprops.cpp:1757
-#, fuzzy
 msgid "Character"
-msgstr "字符编码(&C):"
+msgstr "字符编码(&C)"
 
 #: ../src/richtext/richtextstyles.cpp:1063
 msgid "Character styles"
@@ -2022,14 +2019,14 @@ msgstr "文字样式"
 #: ../src/richtext/richtextbulletspage.cpp:161
 #: ../src/richtext/richtextbulletspage.cpp:163
 msgid "Check to add a period after the bullet."
-msgstr "勾选以在项目符号后加上句号"
+msgstr "勾选以在项目符号后加上句号。"
 
 #: ../src/richtext/richtextliststylepage.cpp:238
 #: ../src/richtext/richtextliststylepage.cpp:240
 #: ../src/richtext/richtextbulletspage.cpp:175
 #: ../src/richtext/richtextbulletspage.cpp:177
 msgid "Check to add a right parenthesis."
-msgstr "勾选以加上右括号"
+msgstr "勾选以加上右括号。"
 
 #: ../src/richtext/richtextborderspage.cpp:383
 #: ../src/richtext/richtextborderspage.cpp:385
@@ -2043,7 +2040,7 @@ msgstr "勾选以同时编辑边框。"
 #: ../src/richtext/richtextbulletspage.cpp:168
 #: ../src/richtext/richtextbulletspage.cpp:170
 msgid "Check to enclose the bullet in parentheses."
-msgstr "勾选以将项目符号加上一对括号"
+msgstr "勾选以将项目符号加上一对括号。"
 
 #: ../src/richtext/richtextfontpage.cpp:315
 #: ../src/richtext/richtextfontpage.cpp:317
@@ -2065,7 +2062,7 @@ msgstr "勾选加下划线。"
 #: ../src/richtext/richtextstyledlg.cpp:289
 #: ../src/richtext/richtextstyledlg.cpp:291
 msgid "Check to restart numbering."
-msgstr "勾选以重新编号"
+msgstr "勾选以重新编号。"
 
 #: ../src/richtext/richtextfontpage.cpp:277
 #: ../src/richtext/richtextfontpage.cpp:279
@@ -2714,7 +2711,7 @@ msgstr "桌面"
 
 #: ../src/generic/aboutdlgg.cpp:70
 msgid "Developed by "
-msgstr "开发由"
+msgstr "开发由 "
 
 #: ../src/generic/aboutdlgg.cpp:176
 msgid "Developers"
@@ -2791,7 +2788,7 @@ msgstr "文档："
 
 #: ../src/generic/aboutdlgg.cpp:73
 msgid "Documentation by "
-msgstr "文档撰写由"
+msgstr "文档撰写由 "
 
 #: ../src/generic/aboutdlgg.cpp:180
 msgid "Documentation writers"
@@ -2856,7 +2853,7 @@ msgstr "编辑项"
 
 #: ../include/wx/generic/progdlgg.h:84
 msgid "Elapsed time:"
-msgstr "用时: "
+msgstr "用时:"
 
 #: ../src/richtext/richtextsizepage.cpp:353
 #: ../src/richtext/richtextsizepage.cpp:355
@@ -2994,9 +2991,9 @@ msgid "Error closing kqueue instance"
 msgstr "关闭 kqueue 实例时发生错误"
 
 #: ../src/common/filefn.cpp:1049
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying the file '%s' to '%s'."
-msgstr "无法复制文件 '%s' 至 '%s'"
+msgstr "无法复制文件 '%s' 至 '%s'。"
 
 #: ../src/generic/dirdlgg.cpp:222
 msgid "Error creating directory"
@@ -3113,7 +3110,7 @@ msgstr "无法为 OpenGL 分配颜色"
 
 #: ../src/unix/displayx11.cpp:236
 msgid "Failed to change video mode"
-msgstr "无法改变视频模式。"
+msgstr "无法改变视频模式"
 
 #: ../src/common/image.cpp:3277
 #, c-format
@@ -3249,7 +3246,7 @@ msgstr "无法按编码 %s 显示 HTML 文档"
 
 #: ../src/msw/clipbrd.cpp:124
 msgid "Failed to empty the clipboard."
-msgstr "无法清空剪贴板"
+msgstr "无法清空剪贴板。"
 
 #: ../src/unix/displayx11.cpp:212
 msgid "Failed to enumerate video modes"
@@ -3468,9 +3465,9 @@ msgid "Failed to parse Plural-Forms: '%s'"
 msgstr "无法解析复数形式: '%s'"
 
 #: ../src/unix/mediactrl.cpp:1214
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to prepare playing \"%s\"."
-msgstr "打开 '%s'(为 %s) 失败"
+msgstr "准备playing失败 \"%s\"。"
 
 #: ../src/msw/clipbrd.cpp:600
 msgid "Failed to put data on the clipboard"
@@ -3495,7 +3492,7 @@ msgstr "无法从 DirectFB 管道中读取事件"
 
 #: ../src/unix/wakeuppipe.cpp:120
 msgid "Failed to read from wake-up pipe"
-msgstr "无法读取唤醒管道。"
+msgstr "无法读取唤醒管道"
 
 #: ../src/unix/utilsunx.cpp:679
 msgid "Failed to redirect child process input/output"
@@ -3681,9 +3678,8 @@ msgstr "False"
 
 #. TRANSLATORS: Label of font family
 #: ../src/propgrid/advprops.cpp:694
-#, fuzzy
 msgid "Family"
-msgstr "字体(&F):"
+msgstr "字体(&F)"
 
 #: ../src/common/stockitem.cpp:157
 msgid "File"
@@ -3924,9 +3920,8 @@ msgid "Green"
 msgstr "MacGreek"
 
 #: ../src/generic/colrdlgg.cpp:342
-#, fuzzy
 msgid "Green:"
-msgstr "MacGreek"
+msgstr "MacGreek："
 
 #: ../src/richtext/richtextborderspage.cpp:615
 msgid "Groove"
@@ -4679,7 +4674,7 @@ msgstr "列表样式"
 #: ../src/richtext/richtextfontpage.cpp:197
 #: ../src/richtext/richtextfontpage.cpp:199
 msgid "Lists font sizes in points."
-msgstr "列表字体大小"
+msgstr "列表字体大小。"
 
 #: ../src/richtext/richtextfontpage.cpp:190
 #: ../src/richtext/richtextfontpage.cpp:192
@@ -4689,7 +4684,7 @@ msgstr "列出可用字体。"
 #: ../src/common/fldlgcmn.cpp:340
 #, c-format
 msgid "Load %s file"
-msgstr "装入文件 %s "
+msgstr "装入文件 %s"
 
 #: ../src/html/htmlwin.cpp:597
 msgid "Loading : "
@@ -4967,7 +4962,7 @@ msgstr "最小高度:"
 
 #: ../src/richtext/richtextsizepage.cpp:382
 msgid "Min width:"
-msgstr "最小宽度: "
+msgstr "最小宽度:"
 
 #: ../src/msw/ole/automtn.cpp:668
 msgid "Missing a required parameter."
@@ -5005,12 +5000,12 @@ msgstr "上移"
 #: ../src/richtext/richtextsizepage.cpp:682
 #: ../src/richtext/richtextsizepage.cpp:684
 msgid "Moves the object to the next paragraph."
-msgstr "将对象移至下一段落"
+msgstr "将对象移至下一段落。"
 
 #: ../src/richtext/richtextsizepage.cpp:676
 #: ../src/richtext/richtextsizepage.cpp:678
 msgid "Moves the object to the previous paragraph."
-msgstr "将对象移至前一段落"
+msgstr "将对象移至前一段落。"
 
 #: ../src/richtext/richtextbuffer.cpp:9966
 msgid "Multiple Cell Properties"
@@ -5163,7 +5158,7 @@ msgstr "图像中没有未用的颜色。"
 #: ../src/generic/helpext.cpp:302
 #, c-format
 msgid "No valid mappings found in the file \"%s\"."
-msgstr "文件 \"%s\" 中无效映射"
+msgstr "文件 \"%s\" 中无效映射。"
 
 #: ../src/richtext/richtextborderspage.cpp:610
 #: ../src/richtext/richtextsizepage.cpp:248
@@ -5181,7 +5176,7 @@ msgstr "正常"
 
 #: ../src/html/helpwnd.cpp:1263
 msgid "Normal face<br>and <u>underlined</u>. "
-msgstr "正常字体<br> 且 <u>带下划线</u>。"
+msgstr "正常字体<br> 且 <u>带下划线</u>。 "
 
 #: ../src/html/helpwnd.cpp:1205
 msgid "Normal font:"
@@ -5350,7 +5345,7 @@ msgstr "对象属性"
 
 #: ../src/msw/ole/automtn.cpp:660
 msgid "Object implementation does not support named arguments."
-msgstr "对象实现不支持命名参数"
+msgstr "对象实现不支持命名参数。"
 
 #: ../src/common/xtixml.cpp:264
 msgid "Objects must have an id attribute"
@@ -5423,7 +5418,7 @@ msgstr "方向"
 
 #: ../src/common/windowid.cpp:242
 msgid "Out of window IDs.  Recommend shutting down application."
-msgstr "window ID已用完。建议关闭应用。"
+msgstr "window IDs已用完。建议关闭应用程序。"
 
 #: ../src/richtext/richtextborderspage.cpp:398
 #: ../src/richtext/richtextborderspage.cpp:556
@@ -5436,7 +5431,7 @@ msgstr ""
 
 #: ../src/msw/ole/automtn.cpp:656
 msgid "Overflow while coercing argument values."
-msgstr "强制修改参数值溢出"
+msgstr "强制修改参数值溢出。"
 
 #: ../src/common/imagpcx.cpp:457 ../src/common/imagpcx.cpp:480
 msgid "PCX: couldn't allocate memory"
@@ -5717,7 +5712,7 @@ msgstr "请选择你想连接的ISP"
 
 #: ../src/common/headerctrlcmn.cpp:59
 msgid "Please select the columns to show and define their order:"
-msgstr "请选择列并显示和定义它们的顺序"
+msgstr "请选择列并显示和定义它们的顺序:"
 
 #: ../src/common/prntbase.cpp:538
 msgid "Please wait while printing..."
@@ -5808,7 +5803,7 @@ msgstr "打印预览(&W)..."
 
 #: ../src/common/docview.cpp:1262
 msgid "Print preview creation failed."
-msgstr "打印预览创建失败"
+msgstr "打印预览创建失败。"
 
 #: ../src/common/stockitem.cpp:182
 msgid "Print preview..."
@@ -5857,7 +5852,7 @@ msgstr "打印机:"
 #: ../include/wx/richtext/richtextprint.h:163 ../src/common/prntbase.cpp:535
 #: ../src/html/htmprint.cpp:277
 msgid "Printing"
-msgstr "正在打印 "
+msgstr "正在打印"
 
 #: ../src/common/prntbase.cpp:612
 msgid "Printing "
@@ -5868,14 +5863,14 @@ msgid "Printing Error"
 msgstr "打印出错"
 
 #: ../src/common/prntbase.cpp:565
-#, fuzzy, c-format
+#, c-format
 msgid "Printing page %d"
-msgstr "正在打印页 %d..."
+msgstr "正在打印页 %d"
 
 #: ../src/common/prntbase.cpp:570
 #, c-format
 msgid "Printing page %d of %d"
-msgstr "正在打印页 %d 共 %d..."
+msgstr "正在打印页 %d 共 %d"
 
 #: ../src/generic/printps.cpp:201
 #, c-format
@@ -6086,7 +6081,7 @@ msgstr "替换为:"
 
 #: ../src/common/valtext.cpp:163
 msgid "Required information entry is empty."
-msgstr "所需的项目信息为空"
+msgstr "所需的项目信息为空。"
 
 #: ../src/common/translation.cpp:1975
 #, c-format
@@ -6140,7 +6135,7 @@ msgstr "右边距 (毫米):"
 #: ../src/richtext/richtextliststylepage.cpp:337
 #: ../src/richtext/richtextliststylepage.cpp:339
 msgid "Right-align text."
-msgstr "文本右对齐"
+msgstr "文本右对齐。"
 
 #: ../src/generic/fontdlgg.cpp:322
 msgid "Roman"
@@ -6167,7 +6162,7 @@ msgstr "保存"
 #: ../src/common/fldlgcmn.cpp:342
 #, c-format
 msgid "Save %s file"
-msgstr "保存文件 %s "
+msgstr "保存文件 %s"
 
 #: ../src/generic/logg.cpp:512
 msgid "Save &As..."
@@ -6294,7 +6289,7 @@ msgstr "选择是否斜体。"
 #: ../src/richtext/richtextfontpage.cpp:239
 #: ../src/richtext/richtextfontpage.cpp:241
 msgid "Select underlining or no underlining."
-msgstr "选择是否下划线"
+msgstr "选择是否下划线。"
 
 #: ../src/motif/filedlg.cpp:220
 msgid "Selection"
@@ -6303,7 +6298,7 @@ msgstr "选区"
 #: ../src/richtext/richtextliststylepage.cpp:187
 #: ../src/richtext/richtextliststylepage.cpp:189
 msgid "Selects the list level to edit."
-msgstr "选择并辨析列表层级"
+msgstr "选择并辨析列表层级。"
 
 #. TRANSLATORS: Name of keyboard key
 #: ../src/common/accelcmn.cpp:82
@@ -6344,9 +6339,8 @@ msgid "Shadow"
 msgstr ""
 
 #: ../src/richtext/richtextbackgroundpage.cpp:258
-#, fuzzy
 msgid "Shadow c&olour:"
-msgstr "选择颜色"
+msgstr "选择颜色:"
 
 #: ../src/common/accelcmn.cpp:335
 msgid "Shift+"
@@ -6383,28 +6377,28 @@ msgstr "显示/隐藏 导航面板"
 #: ../src/richtext/richtextsymboldlg.cpp:421
 #: ../src/richtext/richtextsymboldlg.cpp:423
 msgid "Shows a Unicode subset."
-msgstr "显示Unicode子集"
+msgstr "显示Unicode子集。"
 
 #: ../src/richtext/richtextliststylepage.cpp:472
 #: ../src/richtext/richtextliststylepage.cpp:474
 #: ../src/richtext/richtextbulletspage.cpp:263
 #: ../src/richtext/richtextbulletspage.cpp:265
 msgid "Shows a preview of the bullet settings."
-msgstr "预览项目符号设定"
+msgstr "预览项目符号设定。"
 
 #: ../src/richtext/richtextfontpage.cpp:330
 #: ../src/richtext/richtextfontpage.cpp:332
 msgid "Shows a preview of the font settings."
-msgstr "预览字体设定"
+msgstr "预览字体设定。"
 
 #: ../src/osx/carbon/fontdlg.cpp:394 ../src/osx/carbon/fontdlg.cpp:396
 msgid "Shows a preview of the font."
-msgstr "预览字体"
+msgstr "预览字体。"
 
 #: ../src/richtext/richtextindentspage.cpp:303
 #: ../src/richtext/richtextindentspage.cpp:305
 msgid "Shows a preview of the paragraph settings."
-msgstr "预览段落设定"
+msgstr "预览段落设定。"
 
 #: ../src/generic/fontdlgg.cpp:460 ../src/generic/fontdlgg.cpp:462
 msgid "Shows the font preview."
@@ -6539,7 +6533,7 @@ msgstr "报表用纸，5 1/2 x 8 1/2 英寸"
 #: ../src/richtext/richtextsizepage.cpp:518
 #: ../src/richtext/richtextsizepage.cpp:523
 msgid "Static"
-msgstr "状态:"
+msgstr "状态"
 
 #: ../src/generic/prntdlgg.cpp:204
 msgid "Status:"
@@ -6700,7 +6694,7 @@ msgstr "可用样式。"
 #: ../src/richtext/richtextbackgroundpage.cpp:168
 #: ../src/richtext/richtextbackgroundpage.cpp:170
 msgid "The background colour."
-msgstr "背景色"
+msgstr "背景色。"
 
 #: ../src/richtext/richtextborderspage.cpp:267
 #: ../src/richtext/richtextborderspage.cpp:269
@@ -6724,19 +6718,19 @@ msgstr "边框线样式。"
 #: ../src/richtext/richtextmarginspage.cpp:267
 #: ../src/richtext/richtextmarginspage.cpp:269
 msgid "The bottom margin size."
-msgstr "底边距"
+msgstr "底边距。"
 
 #: ../src/richtext/richtextmarginspage.cpp:381
 #: ../src/richtext/richtextmarginspage.cpp:383
 msgid "The bottom padding size."
-msgstr "底内衬大小"
+msgstr "底内衬大小。"
 
 #: ../src/richtext/richtextsizepage.cpp:639
 #: ../src/richtext/richtextsizepage.cpp:641
 #: ../src/richtext/richtextsizepage.cpp:653
 #: ../src/richtext/richtextsizepage.cpp:655
 msgid "The bottom position."
-msgstr "底部位置"
+msgstr "底部位置。"
 
 #: ../src/richtext/richtextliststylepage.cpp:254
 #: ../src/richtext/richtextliststylepage.cpp:256
@@ -6747,12 +6741,12 @@ msgstr "底部位置"
 #: ../src/richtext/richtextbulletspage.cpp:214
 #: ../src/richtext/richtextbulletspage.cpp:216
 msgid "The bullet character."
-msgstr "项目符号字符"
+msgstr "项目符号字符。"
 
 #: ../src/richtext/richtextsymboldlg.cpp:443
 #: ../src/richtext/richtextsymboldlg.cpp:445
 msgid "The character code."
-msgstr "字符编码"
+msgstr "字符编码。"
 
 #: ../src/common/fontmap.cpp:203
 #, c-format
@@ -6762,7 +6756,8 @@ msgid ""
 "[Cancel] if it cannot be replaced"
 msgstr ""
 "未知字符集 '%s'。选择其它字符集\n"
-"代替它，如果无法替代请选择 [取消] "
+"。\n"
+"代替它，如果无法替代请选择 [取消]"
 
 #: ../src/msw/ole/dataobj.cpp:394
 #, c-format
@@ -6809,7 +6804,7 @@ msgstr ""
 #: ../src/richtext/richtextliststylepage.cpp:394
 #: ../src/richtext/richtextliststylepage.cpp:396
 msgid "The first line indent."
-msgstr "首行缩进"
+msgstr "首行缩进。"
 
 #: ../src/gtk/utilsgtk.cpp:481
 msgid "The following standard GTK+ options are also supported:\n"
@@ -6826,7 +6821,7 @@ msgstr "字体。"
 #: ../src/richtext/richtextsymboldlg.cpp:405
 #: ../src/richtext/richtextsymboldlg.cpp:407
 msgid "The font from which to take the symbol."
-msgstr "符号使用该字体"
+msgstr "符号使用该字体。"
 
 #: ../src/generic/fontdlgg.cpp:427 ../src/generic/fontdlgg.cpp:429
 #: ../src/generic/fontdlgg.cpp:434 ../src/generic/fontdlgg.cpp:436
@@ -6840,7 +6835,7 @@ msgstr "字体大小(磅值)"
 #: ../src/richtext/richtextfontpage.cpp:181
 #: ../src/richtext/richtextfontpage.cpp:183
 msgid "The font size units, points or pixels."
-msgstr "字体大小单位，磅值或像素值"
+msgstr "字体大小单位，磅值或像素值。"
 
 #: ../src/generic/fontdlgg.cpp:386 ../src/generic/fontdlgg.cpp:388
 msgid "The font style."
@@ -6866,24 +6861,24 @@ msgstr "水平排布(&H)"
 #: ../src/richtext/richtextliststylepage.cpp:385
 #: ../src/richtext/richtextliststylepage.cpp:387
 msgid "The left indent."
-msgstr "左缩进"
+msgstr "左缩进。"
 
 #: ../src/richtext/richtextmarginspage.cpp:194
 #: ../src/richtext/richtextmarginspage.cpp:196
 msgid "The left margin size."
-msgstr "左边距大小"
+msgstr "左边距大小。"
 
 #: ../src/richtext/richtextmarginspage.cpp:308
 #: ../src/richtext/richtextmarginspage.cpp:310
 msgid "The left padding size."
-msgstr "左内衬大小"
+msgstr "左内衬大小。"
 
 #: ../src/richtext/richtextsizepage.cpp:534
 #: ../src/richtext/richtextsizepage.cpp:536
 #: ../src/richtext/richtextsizepage.cpp:548
 #: ../src/richtext/richtextsizepage.cpp:550
 msgid "The left position."
-msgstr "左位置"
+msgstr "左位置。"
 
 #: ../src/richtext/richtextindentspage.cpp:288
 #: ../src/richtext/richtextindentspage.cpp:290
@@ -6895,11 +6890,11 @@ msgstr "行距。"
 #: ../src/richtext/richtextbulletspage.cpp:255
 #: ../src/richtext/richtextbulletspage.cpp:257
 msgid "The list item number."
-msgstr "列表编号"
+msgstr "列表编号。"
 
 #: ../src/msw/ole/automtn.cpp:664
 msgid "The locale ID is unknown."
-msgstr "区域ID未知"
+msgstr "区域ID未知。"
 
 #: ../src/richtext/richtextsizepage.cpp:366
 #: ../src/richtext/richtextsizepage.cpp:368
@@ -6919,7 +6914,7 @@ msgstr "对象最大宽度。"
 #: ../src/richtext/richtextsizepage.cpp:420
 #: ../src/richtext/richtextsizepage.cpp:422
 msgid "The object minimum height."
-msgstr "对象最小高度"
+msgstr "对象最小高度。"
 
 #: ../src/richtext/richtextsizepage.cpp:393
 #: ../src/richtext/richtextsizepage.cpp:395
@@ -6934,17 +6929,17 @@ msgstr "对象宽度。"
 #: ../src/richtext/richtextindentspage.cpp:227
 #: ../src/richtext/richtextindentspage.cpp:229
 msgid "The outline level."
-msgstr "大纲层级"
+msgstr "大纲层级。"
 
 #: ../src/common/log.cpp:277
-#, fuzzy, c-format
+#, c-format
 msgid "The previous message repeated %u time."
 msgid_plural "The previous message repeated %u times."
-msgstr[0] "前一消息重复 %lu 次"
+msgstr[0] "前一消息重复%u次。"
 
 #: ../src/common/log.cpp:270
 msgid "The previous message repeated once."
-msgstr "前一消息重复一次"
+msgstr "前一消息重复一次。"
 
 #: ../src/richtext/richtextsymboldlg.cpp:462
 #: ../src/richtext/richtextsymboldlg.cpp:464
@@ -6980,14 +6975,14 @@ msgstr "右边距大小。"
 #: ../src/richtext/richtextmarginspage.cpp:333
 #: ../src/richtext/richtextmarginspage.cpp:335
 msgid "The right padding size."
-msgstr "右内衬"
+msgstr "右内衬。"
 
 #: ../src/richtext/richtextsizepage.cpp:604
 #: ../src/richtext/richtextsizepage.cpp:606
 #: ../src/richtext/richtextsizepage.cpp:618
 #: ../src/richtext/richtextsizepage.cpp:620
 msgid "The right position."
-msgstr "又位置"
+msgstr "又位置。"
 
 #: ../src/richtext/richtextbackgroundpage.cpp:309
 #: ../src/richtext/richtextbackgroundpage.cpp:311
@@ -7045,11 +7040,11 @@ msgstr "系统无法找到指定的文件。"
 #: ../src/richtext/richtexttabspage.cpp:114
 #: ../src/richtext/richtexttabspage.cpp:116
 msgid "The tab position."
-msgstr "标签位置"
+msgstr "标签位置。"
 
 #: ../src/richtext/richtexttabspage.cpp:120
 msgid "The tab positions."
-msgstr "标签位置"
+msgstr "标签位置。"
 
 #: ../src/richtext/richtextctrl.cpp:3098
 msgid "The text couldn't be saved."
@@ -7063,7 +7058,7 @@ msgstr "上边距大小。"
 #: ../src/richtext/richtextmarginspage.cpp:356
 #: ../src/richtext/richtextmarginspage.cpp:358
 msgid "The top padding size."
-msgstr "上内衬大小"
+msgstr "上内衬大小。"
 
 #: ../src/richtext/richtextsizepage.cpp:569
 #: ../src/richtext/richtextsizepage.cpp:571
@@ -7113,7 +7108,7 @@ msgstr "这不是 %s。"
 
 #: ../src/common/wincmn.cpp:1653
 msgid "This platform does not support background transparency."
-msgstr "该平台不支持背景透明度"
+msgstr "该平台不支持背景透明度。"
 
 #: ../src/gtk/window.cpp:4660
 msgid ""
@@ -7190,7 +7185,7 @@ msgstr "上页边距 (毫米):"
 
 #: ../src/generic/aboutdlgg.cpp:79
 msgid "Translations by "
-msgstr "翻译由"
+msgstr "翻译由 "
 
 #: ../src/generic/aboutdlgg.cpp:188
 msgid "Translators"
@@ -7222,7 +7217,7 @@ msgstr "输入字体名称。"
 #: ../src/richtext/richtextfontpage.cpp:166
 #: ../src/richtext/richtextfontpage.cpp:168
 msgid "Type a size in points."
-msgstr "输入大小，以磅为单位"
+msgstr "输入大小，以磅为单位。"
 
 #: ../src/msw/ole/automtn.cpp:676
 #, c-format
@@ -7437,58 +7432,57 @@ msgstr "取消缩进"
 #: ../src/richtext/richtextborderspage.cpp:360
 #: ../src/richtext/richtextborderspage.cpp:362
 msgid "Units for the bottom border width."
-msgstr "下边框单位"
+msgstr "下边框单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:277
 #: ../src/richtext/richtextmarginspage.cpp:279
 msgid "Units for the bottom margin."
-msgstr "下边距单位"
+msgstr "下边距单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:528
 #: ../src/richtext/richtextborderspage.cpp:530
 msgid "Units for the bottom outline width."
-msgstr "下轮廓单位"
+msgstr "下轮廓单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:391
 #: ../src/richtext/richtextmarginspage.cpp:393
 msgid "Units for the bottom padding."
-msgstr "下内衬单位"
+msgstr "下内衬单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:664
 #: ../src/richtext/richtextsizepage.cpp:666
 msgid "Units for the bottom position."
-msgstr "下位置单位"
+msgstr "下位置单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:596
 #: ../src/richtext/richtextborderspage.cpp:598
-#, fuzzy
 msgid "Units for the corner radius."
-msgstr "上内衬单位"
+msgstr "上内衬单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:258
 #: ../src/richtext/richtextborderspage.cpp:260
 msgid "Units for the left border width."
-msgstr "左边框单位"
+msgstr "左边框单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:204
 #: ../src/richtext/richtextmarginspage.cpp:206
 msgid "Units for the left margin."
-msgstr "左边距单位"
+msgstr "左边距单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:426
 #: ../src/richtext/richtextborderspage.cpp:428
 msgid "Units for the left outline width."
-msgstr "左轮廓单位"
+msgstr "左轮廓单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:318
 #: ../src/richtext/richtextmarginspage.cpp:320
 msgid "Units for the left padding."
-msgstr "左内衬单位"
+msgstr "左内衬单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:559
 #: ../src/richtext/richtextsizepage.cpp:561
 msgid "Units for the left position."
-msgstr "左位置单位"
+msgstr "左位置单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:485
 #: ../src/richtext/richtextsizepage.cpp:487
@@ -7513,62 +7507,62 @@ msgstr "最小对象宽度单位。"
 #: ../src/richtext/richtextsizepage.cpp:377
 #: ../src/richtext/richtextsizepage.cpp:379
 msgid "Units for the object height."
-msgstr "对象高度单位"
+msgstr "对象高度单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:343
 #: ../src/richtext/richtextsizepage.cpp:345
 msgid "Units for the object width."
-msgstr "对象宽度单位"
+msgstr "对象宽度单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:292
 #: ../src/richtext/richtextborderspage.cpp:294
 msgid "Units for the right border width."
-msgstr "右边框单位"
+msgstr "右边框单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:229
 #: ../src/richtext/richtextmarginspage.cpp:231
 msgid "Units for the right margin."
-msgstr "右边距单位"
+msgstr "右边距单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:460
 #: ../src/richtext/richtextborderspage.cpp:462
 msgid "Units for the right outline width."
-msgstr "右轮廓单位"
+msgstr "右轮廓单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:343
 #: ../src/richtext/richtextmarginspage.cpp:345
 msgid "Units for the right padding."
-msgstr "右内衬单位"
+msgstr "右内衬单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:629
 #: ../src/richtext/richtextsizepage.cpp:631
 msgid "Units for the right position."
-msgstr "右位置单位"
+msgstr "右位置单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:326
 #: ../src/richtext/richtextborderspage.cpp:328
 msgid "Units for the top border width."
-msgstr "上边框单位"
+msgstr "上边框单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:252
 #: ../src/richtext/richtextmarginspage.cpp:254
 msgid "Units for the top margin."
-msgstr "上边距单位"
+msgstr "上边距单位。"
 
 #: ../src/richtext/richtextborderspage.cpp:494
 #: ../src/richtext/richtextborderspage.cpp:496
 msgid "Units for the top outline width."
-msgstr "上轮廓单位"
+msgstr "上轮廓单位。"
 
 #: ../src/richtext/richtextmarginspage.cpp:366
 #: ../src/richtext/richtextmarginspage.cpp:368
 msgid "Units for the top padding."
-msgstr "上内衬单位"
+msgstr "上内衬单位。"
 
 #: ../src/richtext/richtextsizepage.cpp:594
 #: ../src/richtext/richtextsizepage.cpp:596
 msgid "Units for the top position."
-msgstr "上位置单位"
+msgstr "上位置单位。"
 
 #: ../src/richtext/richtextbackgroundpage.cpp:230
 #: ../src/richtext/richtextbackgroundpage.cpp:232
@@ -7578,9 +7572,8 @@ msgstr "上位置单位"
 #: ../src/richtext/richtextbackgroundpage.cpp:295
 #: ../src/richtext/richtextbackgroundpage.cpp:320
 #: ../src/richtext/richtextbackgroundpage.cpp:322
-#, fuzzy
 msgid "Units for this value."
-msgstr "左边距单位"
+msgstr "左边距单位。"
 
 #: ../src/generic/progdlgg.cpp:353 ../src/generic/progdlgg.cpp:622
 msgid "Unknown"
@@ -7630,7 +7623,7 @@ msgstr "未知异常"
 
 #: ../src/common/image.cpp:2839
 msgid "Unknown image data format."
-msgstr "未知图像数据格式"
+msgstr "未知图像数据格式。"
 
 #: ../src/common/cmdline.cpp:914
 #, c-format
@@ -7639,7 +7632,7 @@ msgstr "未知的长选项 '%s'"
 
 #: ../src/msw/ole/automtn.cpp:631
 msgid "Unknown name or named argument."
-msgstr "未知名称或者命名参数"
+msgstr "未知名称或者命名参数。"
 
 #: ../src/common/cmdline.cpp:929 ../src/common/cmdline.cpp:951
 #, c-format
@@ -7728,7 +7721,7 @@ msgstr "数值必须在 %s 和 %s 之间。"
 
 #: ../src/generic/aboutdlgg.cpp:128
 msgid "Version "
-msgstr "版本"
+msgstr "版本 "
 
 #: ../src/richtext/richtextsizepage.cpp:291
 #: ../src/richtext/richtextsizepage.cpp:293
@@ -7956,7 +7949,7 @@ msgstr "是"
 
 #: ../src/osx/carbon/overlay.cpp:155
 msgid "You cannot Clear an overlay that is not inited"
-msgstr "你无法清除未初始化的 overlay。"
+msgstr "无法清除未初始化的 overlay"
 
 #: ../src/osx/carbon/overlay.cpp:107 ../src/dfb/overlay.cpp:61
 msgid "You cannot Init an overlay twice"
@@ -7996,7 +7989,7 @@ msgstr "缩放以适应窗口"
 
 #: ../src/msw/dde.cpp:1141
 msgid "a DDEML application has created a prolonged race condition."
-msgstr "DDEML 应用程序已创建延时 race 条件."
+msgstr " DDEML 应用程序已创建延时 race 条件."
 
 #: ../src/msw/dde.cpp:1129
 msgid ""
@@ -8019,7 +8012,7 @@ msgstr "内存分配失败。"
 
 #: ../src/msw/dde.cpp:1138
 msgid "a parameter failed to be validated by the DDEML."
-msgstr "DDEML 参数验证失败。"
+msgstr " DDEML 参数验证失败。"
 
 #: ../src/msw/dde.cpp:1120
 msgid "a request for a synchronous advise transaction has timed out."
@@ -8073,7 +8066,7 @@ msgstr ""
 
 #: ../src/msw/dde.cpp:1156
 msgid "an internal call to the PostMessage function has failed. "
-msgstr "内部调用 PostMessage 失败。"
+msgstr "内部调用 PostMessage 失败。 "
 
 #: ../src/msw/dde.cpp:1165
 msgid "an internal error has occurred in the DDEML."
@@ -8201,11 +8194,11 @@ msgstr "无法打开用户配置文件。"
 
 #: ../src/common/zipstrm.cpp:579
 msgid "can't re-initialize zlib deflate stream"
-msgstr "无法重新初始化 zlib 压缩流。"
+msgstr "无法重新初始化 zlib 压缩流"
 
 #: ../src/common/zipstrm.cpp:604
 msgid "can't re-initialize zlib inflate stream"
-msgstr "无法重新初始化 zlib 解压流。"
+msgstr "无法重新初始化 zlib 解压流"
 
 #: ../src/common/file.cpp:304
 #, c-format
@@ -8365,9 +8358,8 @@ msgstr "刷新文件 '%s' 失败"
 
 #. TRANSLATORS: Name of Boolean false value
 #: ../src/generic/datavgen.cpp:1030
-#, fuzzy
 msgid "false"
-msgstr "False"
+msgstr "false"
 
 #: ../src/common/datetimefmt.cpp:1966
 msgid "fifteenth"
@@ -8720,7 +8712,7 @@ msgstr "标准/三角形"
 
 #: ../src/common/zipstrm.cpp:1985
 msgid "stored file length not in Zip header"
-msgstr "Zip 头没有已存文件的长度信息"
+msgstr "存储的文件长度不在Zip标头中"
 
 #: ../src/common/cmdline.cpp:1488
 msgid "str"
