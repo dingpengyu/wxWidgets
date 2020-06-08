@@ -55,6 +55,7 @@ public:
     virtual bool IsIconized() const wxOVERRIDE;
     virtual void SetIcons(const wxIconBundle& icons ) wxOVERRIDE;
     virtual void Restore() wxOVERRIDE;
+    virtual bool Destroy() wxOVERRIDE;
 
     virtual void SetLayoutDirection(wxLayoutDirection dir) wxOVERRIDE;
 
@@ -102,7 +103,7 @@ public:
 
     // called from wxWidgets code itself only when the pending focus, i.e. the
     // element which should get focus when this TLW is activated again, changes
-    virtual void WXDoUpdatePendingFocus(wxWindow* win) wxOVERRIDE
+    virtual void WXSetPendingFocus(wxWindow* win) wxOVERRIDE
     {
         m_winLastFocused = win;
     }

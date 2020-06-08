@@ -1077,6 +1077,9 @@ bool wxListCtrl::SetItem(long index, int col, const wxString& label, int imageId
 // Gets the item state
 int wxListCtrl::GetItemState(long item, long stateMask) const
 {
+    wxCHECK_MSG( item >= 0 && item < GetItemCount(), 0,
+                 wxS("invalid list control item index in GetItemState()") );
+
     wxListItem info;
 
     info.m_mask = wxLIST_MASK_STATE;
@@ -3665,8 +3668,6 @@ static void wxConvertToMSWListCol(HWND hwndList,
 
     if ( item.m_mask & wxLIST_MASK_IMAGE )
     {
-        lvCol.mask |= LVCF_IMAGE;
-
         // as we're going to overwrite the format field, get its
         // current value first -- unless we want to overwrite it anyhow
         if ( !(lvCol.mask & LVCF_FMT) )
@@ -3686,14 +3687,18 @@ static void wxConvertToMSWListCol(HWND hwndList,
         // seem to be generally nicer than on the left and the generic
         // version only draws them on the right (we don't have a flag to
         // specify the image location anyhow)
-        const int fmtImage = LVCFMT_BITMAP_ON_RIGHT | LVCFMT_COL_HAS_IMAGES;
-
+        const int fmtImage = LVCFMT_BITMAP_ON_RIGHT | LVCFMT_IMAGE;
         if ( item.m_image != -1 )
+        {
             lvCol.fmt |= fmtImage;
-        else // remove any existing image
-            lvCol.fmt &= ~fmtImage;
 
-        lvCol.iImage = item.m_image;
+            lvCol.mask |= LVCF_IMAGE;
+            lvCol.iImage = item.m_image;
+        }
+        else // remove any existing image
+        {
+            lvCol.fmt &= ~fmtImage;
+        }
     }
 }
 

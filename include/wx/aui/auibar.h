@@ -525,6 +525,12 @@ public:
 
     void ClearTools() { Clear() ; }
     void Clear();
+
+    bool DestroyTool(int toolId);
+    bool DestroyToolByIndex(int idx);
+
+    // Note that these methods do _not_ delete the associated control, if any.
+    // Use DestroyTool() or DestroyToolByIndex() if this is wanted.
     bool DeleteTool(int toolId);
     bool DeleteByIndex(int toolId);
 
@@ -617,12 +623,6 @@ protected:
     wxRect GetOverflowRect() const;
     wxSize GetLabelSize(const wxString& label);
     wxAuiToolBarItem* FindToolByPositionWithPacking(wxCoord x, wxCoord y) const;
-
-    void DoSetSize(int x,
-                   int y,
-                   int width,
-                   int height,
-                   int sizeFlags = wxSIZE_AUTO) wxOVERRIDE;
 
 protected: // handlers
 

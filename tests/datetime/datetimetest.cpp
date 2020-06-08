@@ -20,6 +20,7 @@
 
 #ifndef WX_PRECOMP
     #include "wx/time.h"    // wxGetTimeZone()
+    #include "wx/utils.h"   // wxMilliSleep()
 #endif // WX_PRECOMP
 
 #include "wx/wxcrt.h"       // for wxStrstr()
@@ -867,10 +868,16 @@ void DateTimeTestCase::TestTimeFormat()
     CPPUNIT_ASSERT( dt.ParseFormat("12:23:45.000", "%H:%M:%S.%l") );
     CPPUNIT_ASSERT_EQUAL( 0, dt.GetMillisecond() );
 
+    // test another format modifier not testes above.
+    CPPUNIT_ASSERT( dt.ParseFormat("23", "%e") );
+    CPPUNIT_ASSERT_EQUAL( 23, dt.GetDay() );
+
     // test partially specified dates too
     wxDateTime dtDef(26, wxDateTime::Sep, 2008);
-    CPPUNIT_ASSERT( dt.ParseFormat("17", "%d") );
+    CPPUNIT_ASSERT( dt.ParseFormat("17", "%d", dtDef) );
     CPPUNIT_ASSERT_EQUAL( 17, dt.GetDay() );
+    CPPUNIT_ASSERT_EQUAL( wxDateTime::Sep, dt.GetMonth() );
+    CPPUNIT_ASSERT_EQUAL( 2008, dt.GetYear() );
 
     // test some degenerate cases
     CPPUNIT_ASSERT( !dt.ParseFormat("", "%z") );
@@ -1703,8 +1710,24 @@ TEST_CASE("wxDateTime-BST-bugs", "[datetime][dst][BST][.]")
 
 TEST_CASE("wxDateTime::UNow", "[datetime][now][unow]")
 {
-    const wxDateTime now = wxDateTime::Now();
-    const wxDateTime unow = wxDateTime::UNow();
+    // It's unlikely, but possible, that the consecutive functions are called
+    // on different sides of some second boundary, but it really shouldn't
+    // happen more than once in a row.
+    wxDateTime now, unow;
+    for ( int i = 0; i < 3; ++i )
+    {
+        now = wxDateTime::Now();
+        unow = wxDateTime::UNow();
+        if ( now.GetSecond() == unow.GetSecond() )
+            break;
+
+        WARN("wxDateTime::Now() and UNow() returned different "
+             "second values ("
+             << now.GetSecond() << " and " << unow.GetSecond() <<
+             "), retrying.");
+
+        wxMilliSleep(123);
+    }
 
     CHECK( now.GetYear() == unow.GetYear() );
     CHECK( now.GetMonth() == unow.GetMonth() );
@@ -1726,6 +1749,8 @@ TEST_CASE("wxDateTime::UNow", "[datetime][now][unow]")
             gotMS = true;
             break;
         }
+
+        wxMilliSleep(123);
     }
 
     CHECK( gotMS );

@@ -5479,6 +5479,7 @@ protected:
     void OnKeyDown(wxKeyEvent& evt);
     void OnLoseFocus(wxFocusEvent& evt);
     void OnGainFocus(wxFocusEvent& evt);
+    void OnDPIChanged(wxDPIChangedEvent& evt);
     void OnSysColourChanged(wxSysColourChangedEvent& evt);
     void OnEraseBackground(wxEraseEvent& evt);
     void OnMenu(wxCommandEvent& evt);
@@ -5491,6 +5492,10 @@ protected:
     // Turn notifications from Scintilla into events
     void NotifyChange();
     void NotifyParent(SCNotification* scn);
+
+#ifdef __WXMSW__
+    virtual WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) wxOVERRIDE;
+#endif // __WXMSW__
 
 private:
     wxDECLARE_EVENT_TABLE();

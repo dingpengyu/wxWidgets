@@ -2215,9 +2215,14 @@ class wxPaintEvent : public wxEvent
 {
 public:
     /**
-        Constructor.
+        Constructor for exclusive use of wxWidgets itself.
+
+        Note that the objects of this class can @em not be created from
+        application code, they're only created by the library itself. If you
+        need a window to be repainted, use wxWindow::Refresh() instead of
+        trying to manually create an event of this class.
     */
-    wxPaintEvent(int id = 0);
+    explicit wxPaintEvent(wxWindow* window);
 };
 
 
@@ -3657,7 +3662,7 @@ public:
     event does not happen).
 
     In short, the EVT_SCROLL_CHANGED event is triggered when scrolling/ moving has finished
-    independently of the way it had started. Please see the widgets sample ("Slider" page)
+    independently of the way it had started. Please see the @ref page_samples_widgets ("Slider" page)
     to see the difference between EVT_SCROLL_THUMBRELEASE and EVT_SCROLL_CHANGED in action.
 
     @remarks
@@ -4827,8 +4832,7 @@ wxEventType wxNewEventType();
 
     @see wxDECLARE_EVENT(), @ref overview_events_custom
  */
-#define wxDEFINE_EVENT(name, cls) \
-    const wxEventTypeTag< cls > name(wxNewEventType())
+#define wxDEFINE_EVENT(name, cls)
 
 /**
     Declares a custom event type.
@@ -4848,8 +4852,7 @@ wxEventType wxNewEventType();
     wxDECLARE_EVENT(MY_CUSTOM_EVENT, MyCustomEvent);
     @endcode
  */
-#define wxDECLARE_EVENT(name, cls) \
-        wxDECLARE_EXPORTED_EVENT(wxEMPTY_PARAMETER_VALUE, name, cls)
+#define wxDECLARE_EVENT(name, cls)
 
 /**
     Variant of wxDECLARE_EVENT() used for event types defined inside a shared
@@ -4860,8 +4863,7 @@ wxEventType wxNewEventType();
     wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_BUTTON, wxCommandEvent);
     @endcode
  */
-#define wxDECLARE_EXPORTED_EVENT( expdecl, name, cls ) \
-    extern const expdecl wxEventTypeTag< cls > name;
+#define wxDECLARE_EXPORTED_EVENT( expdecl, name, cls )
 
 /**
     Helper macro for definition of custom event table macros.
@@ -4875,7 +4877,7 @@ wxEventType wxNewEventType();
 
     @see @ref overview_events_custom_ownclass
  */
-#define wxEVENT_HANDLER_CAST(functype, func) (&func)
+#define wxEVENT_HANDLER_CAST(functype, func)
 
 /**
     This macro is used to define event table macros for handling custom
@@ -4909,8 +4911,7 @@ wxEventType wxNewEventType();
     @param fn
         The event handler method.
  */
-#define wx__DECLARE_EVT1(evt, id, fn) \
-    wx__DECLARE_EVT2(evt, id, wxID_ANY, fn)
+#define wx__DECLARE_EVT1(evt, id, fn)
 
 /**
     Generalized version of the wx__DECLARE_EVT1() macro taking a range of
@@ -4918,16 +4919,14 @@ wxEventType wxNewEventType();
     Argument @a id1 is the first identifier of the range, @a id2 is the
     second identifier of the range.
 */
-#define wx__DECLARE_EVT2(evt, id1, id2, fn) \
-    DECLARE_EVENT_TABLE_ENTRY(evt, id1, id2, fn, NULL),
+#define wx__DECLARE_EVT2(evt, id1, id2, fn)
 
 /**
     Simplified version of the wx__DECLARE_EVT1() macro, to be used when the
     event type must be handled regardless of the ID associated with the
     specific event instances.
 */
-#define wx__DECLARE_EVT0(evt, fn) \
-    wx__DECLARE_EVT1(evt, wxID_ANY, fn)
+#define wx__DECLARE_EVT0(evt, fn)
 
 /**
     Use this macro inside a class declaration to declare a @e static event table

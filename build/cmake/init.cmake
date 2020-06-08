@@ -8,6 +8,15 @@
 # Licence:     wxWindows licence
 #############################################################################
 
+if(DEFINED wxBUILD_CXX_STANDARD AND NOT wxBUILD_CXX_STANDARD STREQUAL COMPILER_DEFAULT)
+    set(CMAKE_CXX_STANDARD ${wxBUILD_CXX_STANDARD})
+endif()
+if(NOT CMAKE_CXX_STANDARD EQUAL 98)
+    set(wxHAS_CXX11 TRUE)
+else()
+    set(wxHAS_CXX11 FALSE)
+endif()
+
 if(MSVC)
     # Determine MSVC runtime library flag
     set(MSVC_LIB_USE "/MD")
@@ -118,6 +127,11 @@ if(NOT wxBUILD_SHARED)
     wx_string_append(wxBUILD_FILE_ID "-static")
 endif()
 wx_string_append(wxBUILD_FILE_ID "-${wxMAJOR_VERSION}.${wxMINOR_VERSION}")
+if(wxBUILD_FLAVOUR)
+    set(lib_flavour ${wxBUILD_FLAVOUR})
+    string(REPLACE "-" "_" lib_flavour ${lib_flavour})
+    wx_string_append(wxBUILD_FILE_ID "-${lib_flavour}")
+endif()
 
 set(wxARCH_SUFFIX)
 
@@ -140,19 +154,15 @@ else()
     set(wxCOMPILER_PREFIX)
 endif()
 
-if(MSVC OR MINGW)
+if(MSVC)
     if(wxBUILD_SHARED)
         set(lib_suffix "dll")
     else()
         set(lib_suffix "lib")
     endif()
 
-    if(MSVC)
-        # Include generator expression to suppress default Debug/Release pair
-        set(wxPLATFORM_LIB_DIR "$<1:/>${wxCOMPILER_PREFIX}${wxARCH_SUFFIX}_${lib_suffix}")
-    else()
-        set(wxPLATFORM_LIB_DIR "/${wxCOMPILER_PREFIX}${wxARCH_SUFFIX}_${lib_suffix}")
-    endif()
+    # Include generator expression to suppress default Debug/Release pair
+    set(wxPLATFORM_LIB_DIR "$<1:/>${wxCOMPILER_PREFIX}${wxARCH_SUFFIX}_${lib_suffix}")
 else()
     set(wxPLATFORM_LIB_DIR)
 endif()
@@ -164,7 +174,7 @@ if(wxBUILD_CUSTOM_SETUP_HEADER_PATH)
     set(wxSETUP_HEADER_PATH ${wxBUILD_CUSTOM_SETUP_HEADER_PATH})
 else()
     # Set path where setup.h will be created
-    if(MSVC OR MINGW)
+    if(MSVC)
         if(wxUSE_UNICODE)
             set(lib_unicode u)
         else()
@@ -194,9 +204,6 @@ endif()
 
 # Constants for setup.h creation
 set(wxUSE_STD_DEFAULT ON)
-if(wxUSE_UNICODE)
-    set(wxUSE_WCHAR_T ON)
-endif()
 if(NOT wxUSE_EXPAT)
     set(wxUSE_XRC OFF)
 endif()
@@ -204,6 +211,31 @@ set(wxUSE_XML ${wxUSE_XRC})
 
 if(DEFINED wxUSE_OLE AND wxUSE_OLE)
     set(wxUSE_OLE_AUTOMATION ON)
+endif()
+
+if(wxUSE_ACTIVEX AND DEFINED wxUSE_OLE AND NOT wxUSE_OLE)
+    message(WARNING "wxActiveXContainer requires wxUSE_OLE... disabled")
+    wx_option_force_value(wxUSE_ACTIVEX OFF)
+endif()
+
+if(wxUSE_DRAG_AND_DROP AND DEFINED wxUSE_OLE AND NOT wxUSE_OLE)
+    message(WARNING "wxUSE_DRAG_AND_DROP requires wxUSE_OLE... disabled")
+    wx_option_force_value(wxUSE_DRAG_AND_DROP OFF)
+endif()
+
+if(wxUSE_ACCESSIBILITY AND DEFINED wxUSE_OLE AND NOT wxUSE_OLE)
+    message(WARNING "wxUSE_ACCESSIBILITY requires wxUSE_OLE... disabled")
+    wx_option_force_value(wxUSE_ACCESSIBILITY OFF)
+endif()
+
+if(wxUSE_MEDIACTRL AND DEFINED wxUSE_ACTIVEX AND NOT wxUSE_ACTIVEX)
+    message(WARNING "wxMediaCtl requires wxActiveXContainer... disabled")
+    wx_option_force_value(wxUSE_MEDIACTRL OFF)
+endif()
+
+if(wxUSE_WEBVIEW AND DEFINED wxUSE_ACTIVEX AND NOT wxUSE_ACTIVEX)
+    message(WARNING "wxWebView requires wxActiveXContainer... disabled")
+    wx_option_force_value(wxUSE_WEBVIEW OFF)
 endif()
 
 if(wxUSE_OPENGL)
@@ -248,6 +280,11 @@ endif()
 if(wxUSE_TEXTFILE AND (NOT wxUSE_FILE OR NOT wxUSE_TEXTBUFFER))
     message(WARNING "wxTextFile requires wxFile and wxTextBuffer... disabled")
     wx_option_force_value(wxUSE_TEXTFILE OFF)
+endif()
+
+if(wxUSE_MIMETYPE AND NOT wxUSE_TEXTFILE)
+    message(WARNING "wxUSE_MIMETYPE requires wxTextFile... disabled")
+    wx_option_force_value(wxUSE_MIMETYPE OFF)
 endif()
 
 if(wxUSE_CONFIG)
@@ -379,8 +416,8 @@ if(wxUSE_GUI)
                 wx_option_force_value(wxUSE_WEBVIEW OFF)
             endif()
         elseif(WXMSW)
-            if(NOT wxUSE_WEBVIEW_IE)
-                message(WARNING "WebviewIE not found or enabled, wxWebview won't be available")
+            if(NOT wxUSE_WEBVIEW_IE AND NOT wxUSE_WEBVIEW_EDGE)
+                message(WARNING "WebviewIE and WebviewEdge not found or enabled, wxWebview won't be available")
                 wx_option_force_value(wxUSE_WEBVIEW OFF)
             endif()
         elseif(APPLE)
@@ -393,8 +430,9 @@ if(wxUSE_GUI)
 
     if(wxUSE_PRIVATE_FONTS AND WXGTK)
         find_package(Fontconfig)
-        if(NOT FONTCONFIG_FOUND)
-            message(WARNING "Fontconfig not found, Private fonts won't be available")
+        find_package(PangoFT2)
+        if(NOT FONTCONFIG_FOUND OR NOT PANGOFT2_FOUND)
+            message(WARNING "Fontconfig or PangoFT2 not found, Private fonts won't be available")
             wx_option_force_value(wxUSE_PRIVATE_FONTS OFF)
         endif()
     endif()
@@ -492,3 +530,37 @@ if(wxUSE_GUI)
         set(wxUSE_LIBGNOMEVFS OFF)
     endif()
 endif()
+
+# test if precompiled headers are supported using the cotire test project
+if(DEFINED wxBUILD_PRECOMP_PREV AND NOT wxBUILD_PRECOMP STREQUAL wxBUILD_PRECOMP_PREV)
+    set(CLEAN_PRECOMP_TEST TRUE)
+endif()
+set(wxBUILD_PRECOMP_PREV ${wxBUILD_PRECOMP} CACHE INTERNAL "")
+
+if(wxBUILD_PRECOMP)
+    if (CLEAN_PRECOMP_TEST)
+        try_compile(RESULT_VAR_CLEAN
+                    "${wxBINARY_DIR}/CMakeFiles/cotire_test"
+                    "${wxSOURCE_DIR}/build/cmake/modules/cotire_test"
+                    CotireExample clean_cotire
+        )
+    endif()
+    try_compile(RESULT_VAR
+                "${wxBINARY_DIR}/CMakeFiles/cotire_test"
+                "${wxSOURCE_DIR}/build/cmake/modules/cotire_test"
+                CotireExample OUTPUT_VARIABLE OUTPUT_VAR
+    )
+
+    # check if output has precompiled header warnings. The build can still succeed, so check the output
+    # likely caused by gcc hardening: https://bugzilla.redhat.com/show_bug.cgi?id=1721553
+    # cc1plus: warning /path/to/project/cotire/name_CXX_prefix.hxx.gch: had text segment at different address
+    string(FIND "${OUTPUT_VAR}" "had text segment at different address" HAS_MESSAGE)
+    if(${HAS_MESSAGE} GREATER -1)
+        set(RESULT_VAR FALSE)
+    endif()
+
+    if(NOT RESULT_VAR)
+        message(WARNING "precompiled header (PCH) test failed, it will be turned off")
+        wx_option_force_value(wxBUILD_PRECOMP OFF)
+    endif()
+endif(wxBUILD_PRECOMP)

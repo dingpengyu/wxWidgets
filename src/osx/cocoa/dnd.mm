@@ -10,11 +10,11 @@
 
 #include "wx/wxprec.h"
 
+#if wxUSE_DRAG_AND_DROP || wxUSE_CLIPBOARD
+
 #ifndef WX_PRECOMP
 #include "wx/object.h"
 #endif
-
-#if wxUSE_DRAG_AND_DROP
 
 #include "wx/dnd.h"
 #include "wx/clipbrd.h"
@@ -30,6 +30,7 @@
 #include "wx/evtloop.h"
 
 #include "wx/osx/private.h"
+#include "wx/osx/private/datatransfer.h"
 
 wxOSXDataSinkItem::~wxOSXDataSinkItem()
 {
@@ -241,6 +242,7 @@ size_t wxOSXPasteboard::GetItemCount() const
     return [[m_pasteboard pasteboardItems] count];
 }
 
+#if wxUSE_DRAG_AND_DROP
 
 wxDropSource* gCurrentSource = NULL;
 
@@ -511,4 +513,4 @@ wxDragResult wxDropSource::DoDragDrop(int flags)
 }
 
 #endif // wxUSE_DRAG_AND_DROP
-
+#endif // wxUSE_DRAG_AND_DROP || wxUSE_CLIPBOARD

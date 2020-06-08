@@ -3,7 +3,7 @@
  * Template for the set.h file for VMS                                       *
  * Created from setup.h_in                                                   *
  * Author : J.Jansen (joukj@hrem.nano.tudelft.nl)                            *
- * Date : 13 September 2019                                                  *
+ * Date : 18 December 2019                                                   *
  *                                                                           *
  *****************************************************************************/
 
@@ -218,8 +218,6 @@ typedef pid_t GPid;
 #endif
 #endif
 
-#define wxUSE_WCHAR_T 1
-
 
 #define wxUSE_EXCEPTIONS 1
 
@@ -259,8 +257,6 @@ typedef pid_t GPid;
 #define wxUSE_STD_STRING  wxUSE_STD_DEFAULT
 
 #define wxUSE_STD_STRING_CONV_IN_WXSTRING wxUSE_STL
-
-#define wxUSE_IOSTREAMH     1
 
 #define wxUSE_LONGLONG      1
 
@@ -466,6 +462,8 @@ typedef pid_t GPid;
 #endif
 #define wxUSE_TREECTRL     1
 #define wxUSE_TREELISTCTRL  1
+
+#define wxUSE_NATIVE_DATAVIEWCTRL 0
 
 #define wxUSE_STATUSBAR    1
 
@@ -1078,9 +1076,6 @@ typedef pid_t GPid;
 #undef HAVE_SETENV
 #endif
 
-/* Define if you have shl_load() */
-#undef HAVE_SHL_LOAD
-
 #if __CRTL_VER >= 70312000
 /* Define if you have snprintf() */
 #define HAVE_SNPRINTF 1
@@ -1198,9 +1193,6 @@ typedef pid_t GPid;
 
 /* Define if wchar_t is distinct type in your compiler. */
 #define wxWCHAR_T_IS_REAL_TYPE 1
-
-/* Define if you have the dlerror function.  */
-#define HAVE_DLERROR 1
 
 /* Define if you have the dladdr function.  */
 #undef HAVE_DLADDR

@@ -69,9 +69,6 @@ namespace
 // Local functions
 //-----------------------------------------------------------------------------
 
-inline double dmin(double a, double b) { return a < b ? a : b; }
-inline double dmax(double a, double b) { return a > b ? a : b; }
-
 // translate a wxColour to a Color
 inline Color wxColourToColor(const wxColour& col)
 {
@@ -342,17 +339,18 @@ class wxGDIPlusFontData : public wxGraphicsObjectRefData
 public:
     wxGDIPlusFontData( wxGraphicsRenderer* renderer,
                        const wxFont &font,
+                       const wxRealPoint& dpi,
                        const wxColour& col );
     wxGDIPlusFontData(wxGraphicsRenderer* renderer,
                       const wxString& name,
-                      REAL size,
+                      REAL sizeInPixels,
                       int style,
                       const wxColour& col);
 
     // This ctor takes ownership of the brush.
     wxGDIPlusFontData(wxGraphicsRenderer* renderer,
                       const wxString& name,
-                      REAL size,
+                      REAL sizeInPixels,
                       int style,
                       Brush* textBrush);
 
@@ -360,26 +358,37 @@ public:
 
     virtual Brush* GetGDIPlusBrush() { return m_textBrush; }
     virtual Font* GetGDIPlusFont() { return m_font; }
+    virtual FontFamily * GetGDIPlusPrivateFontFamily() const
+    {
+#if wxUSE_PRIVATE_FONTS
+        return m_privateFontFamily;
+#else
+        return NULL;
+#endif // wxUSE_PRIVATE_FONTS
+    }
 
 private :
     // Common part of all ctors, flags here is a combination of values of
     // FontStyle GDI+ enum.
     void Init(const wxString& name,
-              REAL size,
+              REAL sizeInPixels,
               int style,
               Brush* textBrush);
 
     // Common part of ctors taking wxColour.
     void Init(const wxString& name,
-              REAL size,
+              REAL sizeInPixels,
               int style,
               const wxColour& col)
     {
-        Init(name, size, style, new SolidBrush(wxColourToColor(col)));
+        Init(name, sizeInPixels, style, new SolidBrush(wxColourToColor(col)));
     }
 
     Brush* m_textBrush;
     Font* m_font;
+#if wxUSE_PRIVATE_FONTS
+    FontFamily* m_privateFontFamily;
+#endif // wxUSE_PRIVATE_FONTS
 };
 
 class wxGDIPlusContext : public wxGraphicsContext
@@ -457,6 +466,7 @@ public:
     virtual void GetPartialTextExtents(const wxString& text, wxArrayDouble& widths) const wxOVERRIDE;
     virtual bool ShouldOffset() const wxOVERRIDE;
     virtual void GetSize( wxDouble* width, wxDouble *height );
+    virtual void GetDPI(wxDouble* dpiX, wxDouble* dpiY) const wxOVERRIDE;
 
     Graphics* GetGraphics() const { return m_context; }
 
@@ -534,40 +544,7 @@ class wxGDIPlusPrintingContext : public wxGDIPlusContext
 public:
     wxGDIPlusPrintingContext( wxGraphicsRenderer* renderer, const wxDC& dc );
 
-    // Override to scale the font proportionally to the DPI.
-    virtual void SetFont(const wxGraphicsFont& font) wxOVERRIDE
-    {
-        // The casts here are safe because we're only supposed to be passed
-        // fonts created by this renderer.
-        Font* const f = static_cast<wxGDIPlusFontData*>(font.GetRefData())->GetGDIPlusFont();
-        Brush* const b = static_cast<wxGDIPlusFontData*>(font.GetRefData())->GetGDIPlusBrush();
-
-        // To scale the font, we need to create a new one which means
-        // retrieving all the parameters originally used to create the font.
-        FontFamily ffamily;
-        f->GetFamily(&ffamily);
-
-        WCHAR familyName[LF_FACESIZE];
-        ffamily.GetFamilyName(familyName);
-
-        wxGraphicsFont fontScaled;
-        fontScaled.SetRefData(new wxGDIPlusFontData
-                                  (
-                                    GetRenderer(),
-                                    familyName,
-                                    f->GetSize() / m_fontScaleRatio,
-                                    f->GetStyle(),
-                                    b->Clone()
-                                  ));
-        wxGDIPlusContext::SetFont(fontScaled);
-    }
-
-private:
-    // This is logically const ratio between this context DPI and the standard
-    // one which is used for scaling the fonts used with this context: without
-    // this, the fonts wouldn't have the correct size, even though we
-    // explicitly create them using UnitPoint units.
-    wxDouble m_fontScaleRatio;
+    void GetDPI(wxDouble* dpiX, wxDouble* dpiY) const wxOVERRIDE;
 };
 
 //-----------------------------------------------------------------------------
@@ -656,10 +633,14 @@ public :
     virtual wxGraphicsFont CreateFont( const wxFont& font,
                                        const wxColour& col) wxOVERRIDE;
 
-    virtual wxGraphicsFont CreateFont(double size,
+    virtual wxGraphicsFont CreateFont(double sizeInPixels,
                                       const wxString& facename,
                                       int flags = wxFONTFLAG_DEFAULT,
                                       const wxColour& col = *wxBLACK) wxOVERRIDE;
+
+    virtual wxGraphicsFont CreateFontAtDPI(const wxFont& font,
+                                           const wxRealPoint& dpi,
+                                           const wxColour& col) wxOVERRIDE;
 
     // create a graphics bitmap from a native bitmap
     virtual wxGraphicsBitmap CreateBitmapFromNativeBitmap( void* bitmap ) wxOVERRIDE;
@@ -772,7 +753,7 @@ wxGDIPlusPenBrushBaseData::CreateLinearGradientBrush(
     }
 
     SetGradientStops(brush, stops);
-    m_brush = brush;    
+    m_brush = brush;
 }
 
 void
@@ -796,7 +777,7 @@ wxGDIPlusPenBrushBaseData::CreateRadialGradientBrush(
     brush->SetSurroundColors(&col, &count);
 
     // TODO: There doesn't seem to be an equivallent for SetWrapMode, so
-    // the area outside of the gradient's radius is not getting painted. 
+    // the area outside of the gradient's radius is not getting painted.
 
     // Apply the matrix if there is one
     if ( !matrix.IsNull() )
@@ -1105,7 +1086,7 @@ extern const wxArrayString& wxGetPrivateFontFileNames();
 
 void
 wxGDIPlusFontData::Init(const wxString& name,
-                        REAL size,
+                        REAL sizeInPixels,
                         int style,
                         Brush* textBrush)
 {
@@ -1113,6 +1094,7 @@ wxGDIPlusFontData::Init(const wxString& name,
     // If the user has registered any private fonts, they should be used in
     // preference to any system-wide ones.
     m_font = NULL;
+    m_privateFontFamily = NULL;
     if ( gs_privateFonts )
     {
         const int count = gs_privateFonts->GetFamilyCount();
@@ -1124,10 +1106,15 @@ wxGDIPlusFontData::Init(const wxString& name,
         for ( int j = 0 ; j < found; j++ )
         {
             wchar_t familyName[LF_FACESIZE];
-            int rc = gs_pFontFamily[j].GetFamilyName(familyName);
-            if ( rc == 0 && name == familyName )
+            Status rc = gs_pFontFamily[j].GetFamilyName(familyName);
+            if ( rc == Ok && name == familyName )
             {
-                m_font = new Font(&gs_pFontFamily[j], size, style, UnitPoint);
+                // Store reference to the cached FontFamily to avoid calling Font::GetFamily()
+                // for private font because calling this method apparently is messing up something
+                // in the array of font families (m_privateFontFamily).
+                m_privateFontFamily = &gs_pFontFamily[j];
+                m_font = new Font(m_privateFontFamily, sizeInPixels, style, UnitPixel);
+
                 break;
             }
         }
@@ -1136,7 +1123,7 @@ wxGDIPlusFontData::Init(const wxString& name,
     if ( !m_font )
 #endif // wxUSE_PRIVATE_FONTS
     {
-        m_font = new Font(name.wc_str(), size, style, UnitPoint);
+        m_font = new Font(name.wc_str(), sizeInPixels, style, UnitPixel);
     }
 
     m_textBrush = textBrush;
@@ -1144,6 +1131,7 @@ wxGDIPlusFontData::Init(const wxString& name,
 
 wxGDIPlusFontData::wxGDIPlusFontData( wxGraphicsRenderer* renderer,
                                       const wxFont &font,
+                                      const wxRealPoint& dpi,
                                       const wxColour& col )
     : wxGraphicsObjectRefData( renderer )
 {
@@ -1157,27 +1145,31 @@ wxGDIPlusFontData::wxGDIPlusFontData( wxGraphicsRenderer* renderer,
     if ( font.GetWeight() == wxFONTWEIGHT_BOLD )
         style |= FontStyleBold;
 
-    Init(font.GetFaceName(), font.GetFractionalPointSize(), style, col);
+    REAL fontSize = !dpi.y
+        ? REAL(font.GetPixelSize().GetHeight())
+        : REAL(font.GetFractionalPointSize()) * dpi.y / 72.0f;
+
+    Init(font.GetFaceName(), fontSize, style, col);
 }
 
 wxGDIPlusFontData::wxGDIPlusFontData(wxGraphicsRenderer* renderer,
                                      const wxString& name,
-                                     REAL size,
+                                     REAL sizeInPixels,
                                      int style,
                                      const wxColour& col) :
     wxGraphicsObjectRefData(renderer)
 {
-    Init(name, size, style, col);
+    Init(name, sizeInPixels, style, col);
 }
 
 wxGDIPlusFontData::wxGDIPlusFontData(wxGraphicsRenderer* renderer,
                                      const wxString& name,
-                                     REAL size,
+                                     REAL sizeInPixels,
                                      int style,
                                      Brush* brush)
     : wxGraphicsObjectRefData(renderer)
 {
-    Init(name, size, style, brush);
+    Init(name, sizeInPixels, style, brush);
 }
 
 wxGDIPlusFontData::~wxGDIPlusFontData()
@@ -2250,17 +2242,33 @@ void wxGDIPlusContext::GetTextExtent( const wxString &str, wxDouble *width, wxDo
     // Get the font metrics if we actually need them.
     if ( descent || externalLeading || (height && str.empty()) )
     {
-        FontFamily ffamily ;
-        f->GetFamily(&ffamily) ;
+        // Because it looks that calling to Font::GetFamily() for a private font is
+        // messing up something in the array of cached private font families so
+        // we should avoid calling this method fetch corresponding font family
+        // from the cache instead.
+        FontFamily* pPrivFontFamily = ((wxGDIPlusFontData*)m_font.GetRefData())->GetGDIPlusPrivateFontFamily();
+        FontFamily* pffamily;
+        if ( pPrivFontFamily )
+        {
+            pffamily = pPrivFontFamily;
+        }
+        else
+        {
+            pffamily = new FontFamily;
+            f->GetFamily(pffamily);
+        }
 
         // Notice that we must use the real font style or the results would be
         // incorrect for italic/bold fonts.
         const INT style = f->GetStyle();
         const REAL size = f->GetSize();
-        const REAL emHeight = ffamily.GetEmHeight(style);
-        REAL rDescent = ffamily.GetCellDescent(style) * size / emHeight;
-        REAL rAscent = ffamily.GetCellAscent(style) * size / emHeight;
-        REAL rHeight = ffamily.GetLineSpacing(style) * size / emHeight;
+        const REAL emHeight = pffamily->GetEmHeight(style);
+        REAL rDescent = pffamily->GetCellDescent(style) * size / emHeight;
+        REAL rAscent = pffamily->GetCellAscent(style) * size / emHeight;
+        REAL rHeight = pffamily->GetLineSpacing(style) * size / emHeight;
+
+        if ( !pPrivFontFamily )
+            delete pffamily;
 
         if ( height && str.empty() )
             *height = rHeight;
@@ -2387,6 +2395,26 @@ void wxGDIPlusContext::GetSize( wxDouble* width, wxDouble *height )
     *height = m_height;
 }
 
+void wxGDIPlusContext::GetDPI(wxDouble* dpiX, wxDouble* dpiY) const
+{
+    if ( GetWindow() )
+    {
+        const wxSize dpi = GetWindow()->GetDPI();
+
+        if ( dpiX )
+            *dpiX = dpi.x;
+        if ( dpiY )
+            *dpiY = dpi.y;
+    }
+    else
+    {
+        if ( dpiX )
+            *dpiX = GetGraphics()->GetDpiX();
+        if ( dpiY )
+            *dpiY = GetGraphics()->GetDpiY();
+    }
+}
+
 //-----------------------------------------------------------------------------
 // wxGDIPlusPrintingContext implementation
 //-----------------------------------------------------------------------------
@@ -2407,10 +2435,16 @@ wxGDIPlusPrintingContext::wxGDIPlusPrintingContext( wxGraphicsRenderer* renderer
     // wxEnhMetaFileDC).
     REAL dpiRatio = 100.0 / context->GetDpiY();
     context->SetPageScale(dpiRatio);
+}
 
-    // We use this modifier when measuring fonts. It is needed because the
-    // page scale is modified above.
-    m_fontScaleRatio = context->GetDpiY() / 96.0;
+void wxGDIPlusPrintingContext::GetDPI(wxDouble* dpiX, wxDouble* dpiY) const
+{
+    // override to use same scaling as wxWindowsPrintPreview::DetermineScaling
+    ScreenHDC hdc;
+    if ( dpiX )
+        *dpiX = ::GetDeviceCaps(hdc, LOGPIXELSX);
+    if ( dpiY )
+        *dpiY = ::GetDeviceCaps(hdc, LOGPIXELSY);
 }
 
 //-----------------------------------------------------------------------------
@@ -2488,9 +2522,6 @@ void wxGDIPlusRenderer::Unload()
 {
     if ( m_gditoken )
     {
-        GdiplusShutdown(m_gditoken);
-        m_gditoken = 0;
-
 #if wxUSE_PRIVATE_FONTS
         if ( gs_privateFonts )
         {
@@ -2501,6 +2532,9 @@ void wxGDIPlusRenderer::Unload()
             gs_pFontFamily = NULL;
         }
 #endif // wxUSE_PRIVATE_FONTS
+
+        GdiplusShutdown(m_gditoken);
+        m_gditoken = 0;
     }
     m_loaded = -1; // next Load() will try again
 }
@@ -2720,19 +2754,11 @@ wxGraphicsFont
 wxGDIPlusRenderer::CreateFont( const wxFont &font,
                                const wxColour &col )
 {
-    ENSURE_LOADED_OR_RETURN(wxNullGraphicsFont);
-    if ( font.IsOk() )
-    {
-        wxGraphicsFont p;
-        p.SetRefData(new wxGDIPlusFontData( this, font, col ));
-        return p;
-    }
-    else
-        return wxNullGraphicsFont;
+    return CreateFontAtDPI(font, wxRealPoint(), col);
 }
 
 wxGraphicsFont
-wxGDIPlusRenderer::CreateFont(double size,
+wxGDIPlusRenderer::CreateFont(double sizeInPixels,
                               const wxString& facename,
                               int flags,
                               const wxColour& col)
@@ -2752,8 +2778,24 @@ wxGDIPlusRenderer::CreateFont(double size,
 
 
     wxGraphicsFont f;
-    f.SetRefData(new wxGDIPlusFontData(this, facename, size, style, col));
+    f.SetRefData(new wxGDIPlusFontData(this, facename, sizeInPixels, style, col));
     return f;
+}
+
+wxGraphicsFont
+wxGDIPlusRenderer::CreateFontAtDPI(const wxFont& font,
+                                   const wxRealPoint& dpi,
+                                   const wxColour& col)
+{
+    ENSURE_LOADED_OR_RETURN(wxNullGraphicsFont);
+    if ( font.IsOk() )
+    {
+        wxGraphicsFont p;
+        p.SetRefData(new wxGDIPlusFontData( this, font, dpi, col ));
+        return p;
+    }
+    else
+        return wxNullGraphicsFont;
 }
 
 wxGraphicsBitmap wxGDIPlusRenderer::CreateBitmap( const wxBitmap &bitmap )

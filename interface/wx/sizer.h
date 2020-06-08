@@ -733,6 +733,10 @@ public:
         total size available to the sizer (@c m_size) and the size computed by
         the last call to CalcMin().
 
+        Note that you should never call this method directly, call Layout()
+        instead if you need to manually update the sizer elements positions.
+        This method is only called by wxWidgets itself.
+
         @since 3.1.3, before this version RecalcSizes() method not taking any
             arguments had to be overridden in the derived classes instead.
     */
@@ -1179,7 +1183,7 @@ public:
     int GetProportion() const;
 
     /**
-        Get the ration item attribute.
+        Get the ratio item attribute.
     */
     float GetRatio() const;
 
@@ -1264,7 +1268,10 @@ public:
     void SetId(int id);
 
     /**
-        @todo docme.
+        Sets the minimum size to be allocated for this item.
+
+        This is identical to SetMinSize(), prefer to use the other function, as
+        its name is more clear.
     */
     void SetInitSize(int x, int y);
 
@@ -1493,8 +1500,20 @@ public:
         This value is scaled appropriately for the current DPI on the systems
         where physical pixel values are used for the control positions and
         sizes, i.e. not with wxGTK or wxOSX.
+
+        @see GetDefaultBorderFractional()
     */
     static int GetDefaultBorder();
+
+    /**
+        Returns the border used by default, with fractional precision. For
+        example when the border is scaled to a non-integer DPI.
+
+        @see GetDefaultBorder()
+
+        @since 3.1.4
+    */
+    static float GetDefaultBorderFractional();
 
     /**
         Aligns the object to the left, similar for @c Align(wxALIGN_LEFT).

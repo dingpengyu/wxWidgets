@@ -69,6 +69,7 @@ class GridFrame : public wxFrame
     void DeleteSelectedRows( wxCommandEvent& );
     void DeleteSelectedCols( wxCommandEvent& );
     void ClearGrid( wxCommandEvent& );
+    void EditCell( wxCommandEvent& );
     void SetCornerLabelValue( wxCommandEvent& );
     void ShowSelection( wxCommandEvent& );
     void SelectCells( wxCommandEvent& );
@@ -120,6 +121,8 @@ class GridFrame : public wxFrame
     void OnSetROHighlightWidth(wxCommandEvent&);
 
     void OnGridCustomTab(wxGridEvent& event);
+
+    void OnGridContextMenu(wxContextMenuEvent& event);
 
 public:
     GridFrame();
@@ -179,6 +182,7 @@ public:
         ID_DELETEROW,
         ID_DELETECOL,
         ID_CLEARGRID,
+        ID_EDITCELL,
         ID_SETCORNERLABEL,
         ID_SHOWSEL,
         ID_CHANGESEL,
@@ -292,13 +296,12 @@ class MyGridCellAttrProvider : public wxGridCellAttrProvider
 {
 public:
     MyGridCellAttrProvider();
-    virtual ~MyGridCellAttrProvider();
 
     virtual wxGridCellAttr *GetAttr(int row, int col,
                                     wxGridCellAttr::wxAttrKind  kind) const wxOVERRIDE;
 
 private:
-    wxGridCellAttr *m_attrForOddRows;
+    wxGridCellAttrPtr m_attrForOddRows;
 };
 
 // ----------------------------------------------------------------------------

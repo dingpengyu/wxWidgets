@@ -19,6 +19,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPicture>
 
 #ifndef WX_PRECOMP
@@ -1154,6 +1155,9 @@ public:
         const wxString& facename,
         int flags = wxFONTFLAG_DEFAULT,
         const wxColour& col = *wxBLACK) wxOVERRIDE;
+    virtual wxGraphicsFont CreateFontAtDPI(const wxFont& font,
+                                           const wxRealPoint& dpi,
+                                           const wxColour& col) wxOVERRIDE;
 
     // create a native bitmap representation
     virtual wxGraphicsBitmap CreateBitmap(const wxBitmap& bitmap) wxOVERRIDE;
@@ -1319,6 +1323,14 @@ wxGraphicsFont wxQtGraphicsRenderer::CreateFont(
     wxGraphicsFont font;
     font.SetRefData(new wxQtFontData(this, sizeInPixels, facename, flags, col));
     return font;
+}
+
+wxGraphicsFont
+wxQtGraphicsRenderer::CreateFontAtDPI(const wxFont& font,
+                                      const wxRealPoint& WXUNUSED(dpi),
+                                      const wxColour& col)
+{
+    return CreateFont(font, col);
 }
 
 wxGraphicsBitmap wxQtGraphicsRenderer::CreateBitmap(const wxBitmap& bmp)

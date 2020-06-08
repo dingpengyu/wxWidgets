@@ -371,11 +371,11 @@ public:
     wxGraphicsPenInfo& Width(wxDouble width)
     { m_width = width; return *this; }
 
-    wxGraphicsPenInfo& 
+    wxGraphicsPenInfo&
     LinearGradient(wxDouble x1, wxDouble y1, wxDouble x2, wxDouble y2,
                    const wxColour& c1, const wxColour& c2,
                    const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
-    { 
+    {
         m_gradientType = wxGRADIENT_LINEAR;
         m_x1 = x1;
         m_y1 = y1;
@@ -384,14 +384,14 @@ public:
         m_stops.SetStartColour(c1);
         m_stops.SetEndColour(c2);
         m_matrix = matrix;
-        return *this; 
-    }                                      
+        return *this;
+    }
 
-    wxGraphicsPenInfo& 
+    wxGraphicsPenInfo&
     LinearGradient(wxDouble x1, wxDouble y1, wxDouble x2, wxDouble y2,
                    const wxGraphicsGradientStops& stops,
                    const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
-    { 
+    {
         m_gradientType = wxGRADIENT_LINEAR;
         m_x1 = x1;
         m_y1 = y1;
@@ -399,42 +399,42 @@ public:
         m_y2 = y2;
         m_stops = stops;
         m_matrix = matrix;
-        return *this; 
+        return *this;
     }
 
-    wxGraphicsPenInfo& 
+    wxGraphicsPenInfo&
     RadialGradient(wxDouble startX, wxDouble startY,
-                   wxDouble endX, wxDouble endY, wxDouble radius, 
+                   wxDouble endX, wxDouble endY, wxDouble radius,
                    const wxColour& oColor, const wxColour& cColor,
                    const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
-    { 
+    {
         m_gradientType = wxGRADIENT_RADIAL;
         m_x1 = startX;
-        m_y1 = startY; 
-        m_x2 = endX; 
+        m_y1 = startY;
+        m_x2 = endX;
         m_y2 = endY;
         m_radius = radius;
         m_stops.SetStartColour(oColor);
         m_stops.SetEndColour(cColor);
         m_matrix = matrix;
-        return *this; 
-    }                                      
+        return *this;
+    }
 
-    wxGraphicsPenInfo& 
+    wxGraphicsPenInfo&
     RadialGradient(wxDouble startX, wxDouble startY,
-                   wxDouble endX, wxDouble endY, 
+                   wxDouble endX, wxDouble endY,
                    wxDouble radius, const wxGraphicsGradientStops& stops,
                    const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
-    { 
+    {
         m_gradientType = wxGRADIENT_RADIAL;
-        m_x1 = startX; 
-        m_y1 = startY; 
-        m_x2 = endX; 
+        m_x1 = startX;
+        m_y1 = startY;
+        m_x2 = endX;
         m_y2 = endY;
         m_radius = radius;
         m_stops = stops;
         m_matrix = matrix;
-        return *this; 
+        return *this;
     }
 
     // Accessors
@@ -727,7 +727,7 @@ public:
     }
 
     // returns the resolution of the graphics context in device points per inch
-    virtual void GetDPI( wxDouble* dpiX, wxDouble* dpiY);
+    virtual void GetDPI( wxDouble* dpiX, wxDouble* dpiY) const;
 
 #if 0
     // sets the current alpha on this context
@@ -1038,6 +1038,9 @@ public:
                                       const wxString& facename,
                                       int flags = wxFONTFLAG_DEFAULT,
                                       const wxColour& col = *wxBLACK) = 0;
+    virtual wxGraphicsFont CreateFontAtDPI(const wxFont& font,
+                                           const wxRealPoint& dpi,
+                                           const wxColour& col = *wxBLACK) = 0;
 
     // create a native bitmap representation
     virtual wxGraphicsBitmap CreateBitmap( const wxBitmap &bitmap ) = 0;

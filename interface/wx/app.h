@@ -401,6 +401,12 @@ public:
         Called from OnInit() and may be used to initialize the parser with the
         command line options for this application. The base class versions adds
         support for a few standard options only.
+
+        Note that this method should just configure @a parser to accept the
+        desired command line options by calling wxCmdLineParser::AddOption(),
+        wxCmdLineParser::AddSwitch() and similar methods, but should @e not
+        call wxCmdLineParser::Parse() as this will be done by wxWidgets itself
+        slightly later.
     */
     virtual void OnInitCmdLine(wxCmdLineParser& parser);
 
@@ -1067,6 +1073,21 @@ public:
         @since 3.0.1
     */
     virtual bool OSXIsGUIApplication();
+
+    /**
+        Enable the automatic tabbing features of macOS.
+
+        This feature is native to the operating system. When it is enabled, macOS
+        will automatically place windows inside tabs and show a tab bar in the
+        application. Entries are also added to the View menu to show/hide the tab bar.
+
+        @onlyfor{wxosx}
+
+        @remarks Requires macOS 10.12+, does nothing under earlier OS versions.
+
+        @since 3.1.4
+    */
+    void OSXEnableAutomaticTabbing(bool enable);
 
     //@}
 

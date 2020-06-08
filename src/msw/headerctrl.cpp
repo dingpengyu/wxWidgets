@@ -540,6 +540,13 @@ void wxMSWHeaderCtrl::DoInsertItem(const wxHeaderColumn& col, unsigned int idx)
 
 void wxMSWHeaderCtrl::SetColumnsOrder(const wxArrayInt& order)
 {
+    // This can happen if we don't have any columns at all and "order" is empty
+    // anyhow in this case, so we don't have anything to do (note that we
+    // already know that the input array contains m_numColumns elements, as
+    // it's checked by the public SetColumnsOrder()).
+    if ( !m_numColumns )
+        return;
+
     wxArrayInt orderShown;
     orderShown.reserve(m_numColumns);
 
@@ -1041,9 +1048,11 @@ bool wxHeaderCtrl::Create(wxWindow *parent,
                                   wxID_ANY,
                                   wxDefaultPosition,
                                   wxDefaultSize,
-                                  ApplyHeaderReorderFlagToStyle(wxNO_BORDER),
+                                  wxNO_BORDER,
                                   wxMSWHeaderCtrlNameStr) )
         return false;
+
+    SetWindowStyle(newStyle);
 
     Bind(wxEVT_SIZE, &wxHeaderCtrl::OnSize, this);
 
@@ -1129,16 +1138,18 @@ void wxHeaderCtrl::SetWindowStyleFlag(long style)
 
     // Update the native control style.
     long flags = m_nativeControl->GetWindowStyleFlag();
-    flags = ApplyHeaderReorderFlagToStyle(flags);
-    m_nativeControl->SetWindowStyleFlag(flags);
-}
 
-long wxHeaderCtrl::ApplyHeaderReorderFlagToStyle(long style)
-{
     if ( HasFlag(wxHD_ALLOW_REORDER) )
-        return style | wxHD_ALLOW_REORDER;
+        flags |= wxHD_ALLOW_REORDER;
+    else
+        flags &= ~wxHD_ALLOW_REORDER;
 
-    return style & ~wxHD_ALLOW_REORDER;
+    if ( HasFlag(wxHD_BITMAP_ON_RIGHT) )
+        flags |= wxHD_BITMAP_ON_RIGHT;
+    else
+        flags &= ~wxHD_BITMAP_ON_RIGHT;
+
+    m_nativeControl->SetWindowStyleFlag(flags);
 }
 
 #endif // wxHAS_GENERIC_HEADERCTRL
